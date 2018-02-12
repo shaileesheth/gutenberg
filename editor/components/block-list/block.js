@@ -3,7 +3,7 @@
  */
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { get, reduce, size, castArray, noop, first, last } from 'lodash';
+import { get, reduce, size, castArray, first, last } from 'lodash';
 import tinymce from 'tinymce';
 
 /**
@@ -25,7 +25,7 @@ import {
 	isReusableBlock,
 	isUnmodifiedDefaultBlock,
 } from '@wordpress/blocks';
-import { withFilters, withContext, withAPIData } from '@wordpress/components';
+import { withFilters, withContext } from '@wordpress/components';
 import { __, sprintf } from '@wordpress/i18n';
 
 /**
@@ -44,7 +44,6 @@ import BlockMobileToolbar from './block-mobile-toolbar';
 import BlockInsertionPoint from './insertion-point';
 import IgnoreNestedEvents from './ignore-nested-events';
 import InserterWithShortcuts from '../inserter-with-shortcuts';
-import { createInnerBlockList } from './utils';
 import {
 	clearSelectedBlock,
 	editPost,
@@ -71,7 +70,6 @@ import {
 	isSelectionEnabled,
 	isTyping,
 	getBlockMode,
-	getCurrentPostType,
 	getSelectedBlocksInitialCaretPosition,
 } from '../../store/selectors';
 
@@ -105,23 +103,6 @@ export class BlockListBlock extends Component {
 			error: null,
 			isHovered: false,
 			isSelectionCollapsed: true,
-		};
-	}
-
-	getChildContext() {
-		const {
-			uid,
-			renderBlockMenu,
-			showContextualToolbar,
-		} = this.props;
-
-		return {
-			BlockList: createInnerBlockList(
-				uid,
-				renderBlockMenu,
-				showContextualToolbar
-			),
-			canUserUseUnfilteredHTML: get( this.props.user, [ 'data', 'capabilities', 'unfiltered_html' ], false ),
 		};
 	}
 
@@ -682,7 +663,6 @@ const mapStateToProps = ( state, { uid, rootUID } ) => {
 		meta: getEditedPostAttribute( state, 'meta' ),
 		mode: getBlockMode( state, uid ),
 		isSelectionEnabled: isSelectionEnabled( state ),
-		postType: getCurrentPostType( state ),
 		initialPosition: getSelectedBlocksInitialCaretPosition( state ),
 		isSelected,
 	};
@@ -744,11 +724,6 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	},
 } );
 
-BlockListBlock.childContextTypes = {
-	BlockList: noop,
-	canUserUseUnfilteredHTML: noop,
-};
-
 export default compose(
 	connect( mapStateToProps, mapDispatchToProps ),
 	withContext( 'editor' )( ( settings ) => {
@@ -759,7 +734,4 @@ export default compose(
 		};
 	} ),
 	withFilters( 'editor.BlockListBlock' ),
-	withAPIData( ( { postType } ) => ( {
-		user: `/wp/v2/users/me?post_type=${ postType }&context=edit`,
-	} ) ),
 )( BlockListBlock );
