@@ -107,8 +107,12 @@ module.exports = {
 				"message": "Use @wordpress/utils as import path instead."
 			},
 			{
-				"selector": "ImportDeclaration[source.value=/^edit-poost$/]",
+				"selector": "ImportDeclaration[source.value=/^edit-post$/]",
 				"message": "Use @wordpress/edit-post as import path instead."
+			},
+			{
+				"selector": "ImportDeclaration[source.value=/^core-data$/]",
+				"message": "Use @wordpress/core-data as import path instead."
 			},
 			{
 				"selector": "CallExpression[callee.name=/^__|_n|_x$/]:not([arguments.0.type=/^Literal|BinaryExpression$/])",
