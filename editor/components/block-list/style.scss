@@ -1,3 +1,7 @@
+.editor-block-list__layout {
+	padding: .1px 0;	// prevent collapsing margins on container
+}
+
 .editor-block-list__layout .editor-default-block-appender,
 .editor-block-list__layout .editor-block-list__block {
 	position: relative;
