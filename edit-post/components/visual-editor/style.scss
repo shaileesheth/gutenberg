@@ -27,7 +27,13 @@
 .edit-post-visual-editor .editor-block-list__block {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: $visual-editor-max-width + ( 2 * $block-mover-padding-visible );
+	max-width: $visual-editor-max-width;
+
+	> div {
+		margin-left: -$block-mover-padding-visible;
+		margin-right: -$block-mover-padding-visible;
+	}
+
 
 	&[data-align="wide"] {
 		max-width: 1100px;
