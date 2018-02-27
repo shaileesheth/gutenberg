@@ -308,7 +308,7 @@
 	.editor-block-settings-menu,
 	.editor-block-mover {
 		position: absolute;
-		top: 0;
+		top: -$block-padding;
 		padding: 0;
 	}
 
@@ -316,7 +316,7 @@
 	// @todo: check how this works when the toolbar is fixed to the top
 	&.is-selected .editor-block-settings-menu,
 	&.is-selected .editor-block-mover {
-		top: $block-toolbar-height + $block-padding + 1px;
+		top: $block-toolbar-height + 1px;
 	}
 
 	// Right side UI
