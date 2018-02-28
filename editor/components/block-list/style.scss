@@ -403,7 +403,7 @@
 
 .editor-block-list__insertion-point-indicator {
 	position: absolute;
-	top: 16px;
+	top: $block-padding - 1px;	// Half the empty space between two blocks, minus the 2px height
 	height: 2px;
 	left: 0;
 	right: 0;
@@ -416,13 +416,14 @@
 	border: none;
 	display: block;
 	top: 0;
-	height: 34px; // Matches the whole empty space between two blocks
+	height: $block-padding * 2; // Matches the whole empty space between two blocks
 	width: 100%;
 	cursor: pointer;
+	padding: 0;	// Unstyle inherited padding from core button
 
 	&:before {
 		position: absolute;
-		top: 16px;
+		top: $block-padding - 1px;	// Half the empty space between two blocks, minus the 2px height
 		height: 2px;
 		left: $block-padding;
 		right: $block-padding;
@@ -457,8 +458,8 @@
 
 .editor-block-list__block > .editor-block-list__insertion-point {
 	position: absolute;
-	bottom: -19px;
-	height: 34px; // Matches the whole empty space between two blocks
+	bottom: -$block-padding * 2;
+	height: $block-padding * 2; // Matches the whole empty space between two blocks
 	top: auto;
 	left: 0;
 	right: 0;
@@ -473,7 +474,8 @@
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
-	top: -19px;
+	//top: -19px;
+	//margin-top: -15px;
 	left: 0;
 	right: 0;
 
