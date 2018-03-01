@@ -43,8 +43,7 @@ $sidebar-width: 280px;
 $block-padding: 14px;
 $block-mover-margin: 18px;
 $block-spacing: 4px;
-// old $block-mover-padding-visible: 32px;
-$block-mover-padding-visible: $icon-button-size-small + $icon-button-size-small;
+$block-mover-padding-visible: $icon-button-size-small + $icon-button-size-small;	// 48
 
 
 // Buttons & UI Widgets

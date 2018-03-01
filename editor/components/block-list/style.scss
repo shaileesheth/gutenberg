@@ -224,8 +224,8 @@
 
 	// Full-wide
 	&[data-align="full"] {
-		padding-left: 0;
-		padding-right: 0;
+		padding-left: $block-mover-padding-visible;
+		padding-right: $block-mover-padding-visible;
 
 		&:before {
 			left: 0;
