@@ -27,13 +27,14 @@
 .edit-post-visual-editor .editor-block-list__block {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: $visual-editor-max-width;
+	max-width: $content-width;
 
-	> div {
-		margin-left: -$block-mover-padding-visible;
-		margin-right: -$block-mover-padding-visible;
+	@include break-content-width() {
+		> div {
+			margin-left: -$block-side-ui-padding;
+			margin-right: -$block-side-ui-padding;
+		}
 	}
-
 
 	&[data-align="wide"] {
 		max-width: 1100px;
@@ -47,7 +48,7 @@
 	&[data-align="wide"] {
 		.editor-block-contextual-toolbar {
 			@include break-small() {
-				width: $visual-editor-max-width + 2;	// 1px border left and right
+				width: $content-width + 2;	// 1px border left and right
 			}
 			margin-left: auto;
 			margin-right: auto;
@@ -71,7 +72,7 @@
 .edit-post-visual-editor .editor-post-title {
 	margin-left: auto;
 	margin-right: auto;
-	max-width: $visual-editor-max-width + ( 2 * $block-mover-padding-visible );
+	max-width: $content-width + ( 2 * $block-side-ui-padding );
 
 	.editor-post-permalink {
 		left: $block-padding;
@@ -79,28 +80,28 @@
 	}
 
 	@include break-small() {
-		padding: 5px #{ $block-mover-padding-visible - 1px };	// subtract 1px border, because this is an outline
+		padding: 5px #{ $block-side-ui-padding - 1px };	// subtract 1px border, because this is an outline
 
 		.editor-post-permalink {
-			left: $block-mover-padding-visible;
-			right: $block-mover-padding-visible;
+			left: $block-side-ui-padding;
+			right: $block-side-ui-padding;
 		}
 	}
 }
 
 .edit-post-visual-editor .editor-default-block-appender {
-	max-width: $visual-editor-max-width + ( 2 * $block-mover-padding-visible );
+	max-width: $content-width + ( 2 * $block-side-ui-padding );
 	clear: left;
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
 
 	@include break-small() {
-		padding: 0 $block-mover-padding-visible;	// don't subtract 1px border because it's a border not an outline
+		padding: 0 $block-side-ui-padding;	// don't subtract 1px border because it's a border not an outline
 
 		.components-drop-zone {
-			left: $block-mover-padding-visible;
-			right: $block-mover-padding-visible;
+			left: $block-side-ui-padding;
+			right: $block-side-ui-padding;
 		}
 
 		.editor-default-block-appender__content {
@@ -110,5 +111,5 @@
 }
 
 .edit-post-visual-editor .editor-block-list__layout > .editor-block-list__insertion-point {
-	max-width: $visual-editor-max-width + ( 2 * $block-mover-padding-visible );
+	max-width: $content-width + ( 2 * $block-side-ui-padding );
 }

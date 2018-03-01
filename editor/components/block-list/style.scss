@@ -8,10 +8,10 @@
 	padding-left: $block-padding;
 	padding-right: $block-padding;
 
-	@include break-small {
+	@include break-content-width {
 		// The block mover needs to stay inside the block to allow clicks when hovering the block
-		padding-left: $block-padding + $block-mover-padding-visible;
-		padding-right: $block-padding + $block-mover-padding-visible;
+		padding-left: $block-padding + $block-side-ui-padding;
+		padding-right: $block-padding + $block-side-ui-padding;
 	}
 
 	// Space every block using margins instead of padding
@@ -224,8 +224,8 @@
 
 	// Full-wide
 	&[data-align="full"] {
-		padding-left: $block-mover-padding-visible;
-		padding-right: $block-mover-padding-visible;
+		padding-left: $block-side-ui-padding;
+		padding-right: $block-side-ui-padding;
 
 		&:before {
 			left: 0;
@@ -282,7 +282,7 @@
 		border: none;
 		top: -4px;
 		bottom: -3px;
-		margin: 0 $block-mover-padding-visible;
+		margin: 0 $block-side-ui-padding;
 		border-radius: 0;
 
 		.components-drop-zone__content {
@@ -326,7 +326,7 @@
 
 		// Mobile
 		display: none;
-		@include break-small {
+		@include break-content-width {
 			display: flex;
 			flex-direction: column;
 		}
@@ -340,7 +340,7 @@
 
 		// Mobile
 		display: none;
-		@include break-small {
+		@include break-content-width {
 			display: block;
 		}
 	}
@@ -465,8 +465,8 @@
 	right: 0;
 
 	@include break-small {
-		left: $block-mover-padding-visible;
-		right: $block-mover-padding-visible;
+		left: $block-side-ui-padding;
+		right: $block-side-ui-padding;
 	}
 }
 
@@ -478,8 +478,8 @@
 	right: 0;
 
 	@include break-small {
-		left: $block-mover-padding-visible;
-		right: $block-mover-padding-visible;
+		left: $block-side-ui-padding;
+		right: $block-side-ui-padding;
 	}
 }
 
@@ -584,6 +584,6 @@
 	right: 10px;
 
 	@include break-small {
-		right: $block-mover-padding-visible + 10px;
+		right: $block-side-ui-padding + 10px;
 	}
 }
