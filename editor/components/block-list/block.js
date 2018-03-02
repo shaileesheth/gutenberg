@@ -577,6 +577,29 @@ export class BlockListBlock extends Component {
 				] }
 				{ ...wrapperProps }
 			>
+				<BlockDropZone
+					index={ order }
+					rootUID={ rootUID }
+					layout={ layout }
+				/>
+				{ shouldShowMovers && (
+					<BlockMover
+						uids={ [ block.uid ] }
+						rootUID={ rootUID }
+						layout={ layout }
+						isFirst={ isFirst }
+						isLast={ isLast }
+					/>
+				) }
+				{ shouldShowSettingsMenu && (
+					<BlockSettingsMenu
+						uids={ [ block.uid ] }
+						rootUID={ rootUID }
+						renderBlockMenu={ renderBlockMenu }
+					/>
+				) }
+				{ shouldShowContextualToolbar && <BlockContextualToolbar /> }
+				{ isFirstMultiSelected && <BlockMultiControls rootUID={ rootUID } /> }
 				<IgnoreNestedEvents
 					ref={ this.bindBlockNode }
 					onKeyPress={ this.maybeStartTyping }
@@ -587,28 +610,6 @@ export class BlockListBlock extends Component {
 					aria-label={ blockLabel }
 					data-block={ block.uid }
 				>
-					<BlockDropZone
-						index={ order }
-						rootUID={ rootUID }
-						layout={ layout }
-					/>
-					{ shouldShowMovers && (
-						<BlockMover
-							uids={ [ block.uid ] }
-							rootUID={ rootUID }
-							layout={ layout }
-							isFirst={ isFirst }
-							isLast={ isLast }
-						/>
-					) }
-					{ shouldShowSettingsMenu && (
-						<BlockSettingsMenu
-							uids={ [ block.uid ] }
-							renderBlockMenu={ renderBlockMenu }
-						/>
-					) }
-					{ shouldShowContextualToolbar && <BlockContextualToolbar /> }
-					{ isFirstMultiSelected && <BlockMultiControls rootUID={ rootUID } /> }
 					<BlockCrashBoundary onError={ this.onBlockError }>
 						{ isValid && mode === 'visual' && (
 							<BlockEdit
