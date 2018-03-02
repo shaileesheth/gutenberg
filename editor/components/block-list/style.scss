@@ -227,9 +227,6 @@
 
 	// Full-wide
 	&[data-align="full"] {
-		padding-left: $block-side-ui-padding;
-		padding-right: $block-side-ui-padding;
-
 		.editor-block-list__block-edit:before {
 			left: 0;
 			right: 0;
