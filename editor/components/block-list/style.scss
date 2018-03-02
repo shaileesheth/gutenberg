@@ -459,6 +459,7 @@
 	}
 }
 
+// In between blocks
 .editor-block-list__block > .editor-block-list__insertion-point {
 	position: absolute;
 	bottom: -$block-padding;
@@ -466,24 +467,16 @@
 	top: auto;
 	left: 0;
 	right: 0;
-
-	@include break-small {
-		left: $block-side-ui-padding;
-		right: $block-side-ui-padding;
-	}
 }
 
+// Before the first block
 .editor-block-list__layout > .editor-block-list__insertion-point {
 	position: relative;
+	top: -$block-padding;
 	margin-left: auto;
 	margin-right: auto;
 	left: 0;
 	right: 0;
-
-	@include break-small {
-		left: $block-side-ui-padding;
-		right: $block-side-ui-padding;
-	}
 }
 
 .editor-block-list__block .editor-block-list__block-html-textarea {
