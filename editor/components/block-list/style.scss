@@ -236,6 +236,23 @@
 
 	// Full-wide
 	&[data-align="full"] {
+
+		// compensate for main container padding
+		@include break-small() {
+			margin-left: -$block-side-ui-padding;
+			margin-right: -$block-side-ui-padding;
+		}
+
+		.editor-block-list__block-edit {
+			margin-left: -$block-padding;
+			margin-right: -$block-padding;
+
+			@include break-small() {
+				margin-left: -$block-side-ui-padding - $block-padding;
+				margin-right: -$block-side-ui-padding - $block-padding;
+			}
+		}
+
 		.editor-block-list__block-edit:before {
 			left: 0;
 			right: 0;
