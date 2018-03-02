@@ -311,15 +311,8 @@
 	.editor-block-settings-menu,
 	.editor-block-mover {
 		position: absolute;
-		top: -$block-padding;
+		top: 0;
 		padding: 0;
-	}
-
-	// When a block is selected, the contextual toolbars top coordinate shifts downwards as the footprint of the block expands
-	// @todo: check how this works when the toolbar is fixed to the top
-	&.is-selected .editor-block-settings-menu,
-	&.is-selected .editor-block-mover {
-		top: $block-toolbar-height + 1px;
 	}
 
 	// Right side UI
@@ -572,10 +565,6 @@
 
 .editor-block-list__side-inserter {
 	position: absolute;
-	top: 10px;
-	right: 10px;
-
-	@include break-small {
-		right: $block-side-ui-padding + 10px;
-	}
+	top: $item-spacing;
+	right: $item-spacing;
 }
