@@ -38,13 +38,6 @@
 	}
 }
 
-// This one should match the width of the theme content + side UI
-@mixin break-content-width() {
-	@media ( min-width: #{ ( $content-width + $block-side-ui-padding + $block-side-ui-padding ) } ) {
-		@content;
-	}
-}
-
 
 /**
  * Long content fade mixin

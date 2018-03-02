@@ -29,7 +29,7 @@
 	margin-right: auto;
 	max-width: $content-width;
 
-	@include break-content-width() {
+	@include break-small() {
 		.editor-block-list__block-edit {
 			margin-left: -$block-side-ui-padding;
 			margin-right: -$block-side-ui-padding;

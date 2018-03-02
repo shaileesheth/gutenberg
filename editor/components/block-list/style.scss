@@ -1,5 +1,14 @@
 .editor-block-list__layout {
-	padding: .1px 0;	// prevent collapsing margins on container
+	// prevent collapsing margins on container
+	padding-top: .1px;
+	padding-bottom: .1px;
+
+	// make room in the main content column for the side UI
+	// the side UI uses negative margins to position itself so as to not affect the block width
+	@include break-small() {
+		padding-left: $block-side-ui-padding;
+		padding-right: $block-side-ui-padding;
+	}
 }
 
 .editor-block-list__layout .editor-default-block-appender,
@@ -8,7 +17,7 @@
 	padding-left: $block-padding;
 	padding-right: $block-padding;
 
-	@include break-content-width {
+	@include break-small() {
 		// The block mover needs to stay inside the block to allow clicks when hovering the block
 		padding-left: $block-padding + $block-side-ui-padding;
 		padding-right: $block-padding + $block-side-ui-padding;
@@ -319,7 +328,7 @@
 
 		// Mobile
 		display: none;
-		@include break-content-width {
+		@include break-small() {
 			display: flex;
 			flex-direction: column;
 		}
@@ -333,7 +342,7 @@
 
 		// Mobile
 		display: none;
-		@include break-content-width {
+		@include break-small() {
 			display: block;
 		}
 	}
@@ -343,6 +352,10 @@
 		display: flex;
 		flex-direction: row;
 		margin-top: $item-spacing;
+
+		@include break-small() {
+			display: none;
+		}
 
 		// Movers, inserter, trash & ellipsis
 		.editor-inserter {
