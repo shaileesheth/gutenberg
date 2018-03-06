@@ -3,7 +3,7 @@
  */
 import isEqualShallow from 'is-equal-shallow';
 import { createStore } from 'redux';
-import { flowRight, without, mapValues } from 'lodash';
+import { flowRight, without, mapValues, get } from 'lodash';
 import memize from 'memize';
 
 /**
@@ -120,7 +120,7 @@ export function registerSelectors( reducerKey, newSelectors ) {
 export function registerResolvers( reducerKey, newResolvers ) {
 	resolvers[ reducerKey ] = mapValues(
 		newResolvers,
-		( resolver ) => ( { ...resolver, fulfill: memize( resolver.fulfill ) } )
+		( resolver ) => ( { fulfill: memize( resolver.fulfill ) } )
 	);
 }
 
@@ -172,14 +172,12 @@ export function select( reducerKey ) {
 	}
 
 	const createResolver = ( selector, key ) => ( ...args ) => {
-		const result = selector( ...args );
-		const resolver = resolvers[ reducerKey ] && resolvers[ reducerKey ][ key ];
-		if ( ! resolver ) {
-			return result;
+		const resolver = get( resolvers, [ reducerKey, key ] );
+		if ( resolver ) {
+			resolver.fulfill( ...args );
 		}
-		resolver.fulfill( ...args );
 
-		return result;
+		return selector( ...args );
 	};
 
 	return mapValues( selectors[ reducerKey ], createResolver );
