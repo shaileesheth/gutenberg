@@ -80,6 +80,40 @@ The return value of `registerStore` is a [Redux-like store object](https://redux
 - `store.dispatch( action: Object )`: Given an action object, calls the registered reducer and updates the state value.
    - _Redux parallel:_ [`dispatch`](https://redux.js.org/api-reference/store#dispatch(action))
 
+### Helpers
+
+#### `combineReducers( reducers: Object ): Function`
+
+As your app grows more complex, you'll want to split your reducing function into separate functions, each managing independent parts of the state. The `combineReducers` helper function turns an object whose values are different reducing functions into a single reducing function you can pass to `registerStore`.
+
+_Example:_
+
+```js
+const { combineReducers, registerStore } = wp.data;
+
+const prices = ( state = {}, action ) => {
+	return action.type === 'SET_PRICE' ?
+		{
+			...state,
+			[ action.item ]: action.price,
+		} :
+		state;
+};
+
+const discountPercent = ( state = 0, action ) => {
+	return action.type  === 'START_SALE' ?
+		action.discountPercent :
+		state;
+};
+
+registerStore( 'my-shop', {
+	reducer: combineReducers( {
+		prices,
+		discountPercent,
+	} ),
+} );
+```
+
 ## Data Access and Manipulation
 
 It is very rare that you should access store methods directly. Instead, the following suite of functions and higher-order components is provided for the most common data access and manipulation needs.

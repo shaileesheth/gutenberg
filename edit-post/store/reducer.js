@@ -1,8 +1,12 @@
 /**
  * External dependencies
  */
-import { combineReducers } from 'redux';
 import { get, omit } from 'lodash';
+
+/**
+ * WordPress dependencies
+ */
+import { combineReducers } from '@wordpress/data';
 
 /**
  * Internal dependencies
