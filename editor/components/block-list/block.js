@@ -9,7 +9,7 @@ import tinymce from 'tinymce';
 /**
  * WordPress dependencies
  */
-import { Component, findDOMNode, compose } from '@wordpress/element';
+import { Component, findDOMNode, Fragment, compose } from '@wordpress/element';
 import {
 	keycodes,
 	focus,
@@ -45,6 +45,7 @@ import BlockMobileToolbar from './block-mobile-toolbar';
 import BlockInsertionPoint from './insertion-point';
 import IgnoreNestedEvents from './ignore-nested-events';
 import InserterWithShortcuts from '../inserter-with-shortcuts';
+import Inserter from '../inserter';
 import { createInnerBlockList } from './utils';
 import {
 	clearSelectedBlock,
@@ -603,7 +604,7 @@ export class BlockListBlock extends Component {
 					rootUID={ rootUID }
 					layout={ layout }
 				/>
-				{ shouldShowMovers && (
+				{ shouldShowMovers && ! showSideInserter && (
 					<BlockMover
 						uids={ [ block.uid ] }
 						rootUID={ rootUID }
@@ -612,7 +613,7 @@ export class BlockListBlock extends Component {
 						isLast={ isLast }
 					/>
 				) }
-				{ shouldShowSettingsMenu && (
+				{ shouldShowSettingsMenu && ! showSideInserter && (
 					<BlockSettingsMenu
 						uids={ [ block.uid ] }
 						rootUID={ rootUID }
@@ -678,9 +679,17 @@ export class BlockListBlock extends Component {
 					/>
 				) }
 				{ showSideInserter && (
-					<div className="editor-block-list__side-inserter">
-						<InserterWithShortcuts uid={ block.uid } layout={ layout } onToggle={ this.selectOnOpen } />
-					</div>
+					<Fragment>
+						<div className="editor-block-list__side-inserter">
+							<InserterWithShortcuts uid={ block.uid } layout={ layout } onToggle={ this.selectOnOpen } />
+						</div>
+						<div className="editor-block-list__empty-block-inserter">
+							<Inserter
+								position="top right"
+								onToggle={ this.selectOnOpen }
+							/>
+						</div>
+					</Fragment>
 				) }
 			</IgnoreNestedEvents>
 		);
