@@ -537,7 +537,7 @@ export class BlockListBlock extends Component {
 		const showSideInserter = ( isSelected || isHovered ) && isEmptyDefaultBlock;
 		const isSelectedNotTyping = isSelected && ( ! this.props.isTyping || ! this.state.isSelectionCollapsed );
 		const shouldAppearSelected = ! showSideInserter && isSelectedNotTyping;
-		const shouldShowMovers = shouldAppearSelected || isHovered || ( isEmptyDefaultBlock && isSelectedNotTyping );
+		const shouldShowMovers = ( shouldAppearSelected || isHovered || ( isEmptyDefaultBlock && isSelectedNotTyping ) ) && ! showSideInserter;
 		const shouldShowSettingsMenu = shouldShowMovers;
 		const shouldShowContextualToolbar = shouldAppearSelected && isValid && showContextualToolbar;
 		const shouldShowMobileToolbar = shouldAppearSelected;
@@ -604,7 +604,7 @@ export class BlockListBlock extends Component {
 					rootUID={ rootUID }
 					layout={ layout }
 				/>
-				{ shouldShowMovers && ! showSideInserter && (
+				{ shouldShowMovers && (
 					<BlockMover
 						uids={ [ block.uid ] }
 						rootUID={ rootUID }
