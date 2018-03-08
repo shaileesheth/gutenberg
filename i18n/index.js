@@ -2,8 +2,18 @@
  * External dependencies
  */
 import Jed from 'jed';
+import memoize from 'memize';
 
 let i18n;
+
+/**
+ * Log to console, once per message; or more precisely, per referentially equal
+ * argument set. Because Jed throws errors, we log these to the console instead
+ * to avoid crashing the application.
+ *
+ * @param {...*} args Arguments to pass to `console.error`
+ */
+const logErrorOnce = memoize( console.error ); // eslint-disable-line no-console
 
 /**
  * Creates a new Jed instance with specified locale data configuration.
@@ -48,11 +58,7 @@ export function dcnpgettext( domain, context, single, plural, number ) {
 	try {
 		return getI18n().dcnpgettext( domain, context, single, plural, number );
 	} catch ( error ) {
-		// Disable reason: Jed throws errors. To avoid crashing the application
-		// we log these to the console instead, and return a default value.
-
-		// eslint-disable-next-line no-console
-		console.error( 'Jed localization error: \n\n' + error.toString() );
+		logErrorOnce( 'Jed localization error: \n\n' + error.toString() );
 
 		return single;
 	}
@@ -139,11 +145,7 @@ export function sprintf( format, ...args ) {
 	try {
 		return Jed.sprintf( format, ...args );
 	} catch ( error ) {
-		// Disable reason: Jed throws errors. To avoid crashing the application
-		// we log these to the console instead, and return a default value.
-
-		// eslint-disable-next-line no-console
-		console.error( 'Jed sprintf error: \n\n' + error.stack );
+		logErrorOnce( 'Jed sprintf error: \n\n' + error.toString() );
 
 		return format;
 	}
