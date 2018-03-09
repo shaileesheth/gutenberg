@@ -20,13 +20,15 @@ import BlockDropZone from '../block-drop-zone';
 import { insertDefaultBlock, startTyping } from '../../store/actions';
 import { getBlock, getBlockCount } from '../../store/selectors';
 
-export function DefaultBlockAppender( { isLocked, isVisible, onAppend, showPrompt } ) {
+export function DefaultBlockAppender( { isLocked, isVisible, onAppend, showPrompt, rootUID } ) {
 	if ( isLocked || ! isVisible ) {
 		return null;
 	}
 
 	return (
-		<div className="editor-default-block-appender">
+		<div
+			data-root-uid={ rootUID || '' }
+			className="editor-default-block-appender">
 			<BlockDropZone />
 			<input
 				className="editor-default-block-appender__content"

@@ -8,7 +8,6 @@ import {
 	WritingFlow,
 	ObserveTyping,
 	EditorGlobalKeyboardShortcuts,
-	BlockSelectionClearer,
 	MultiSelectScrollIntoView,
 } from '@wordpress/editor';
 import { Fragment, compose } from '@wordpress/element';
@@ -23,12 +22,12 @@ import BlockInspectorButton from './block-inspector-button';
 
 function VisualEditor( { hasFixedToolbar, isLargeViewport } ) {
 	return (
-		<BlockSelectionClearer className="edit-post-visual-editor">
+		<div className="edit-post-visual-editor">
 			<EditorGlobalKeyboardShortcuts />
 			<CopyHandler />
 			<MultiSelectScrollIntoView />
-			<ObserveTyping>
-				<WritingFlow>
+			<WritingFlow>
+				<ObserveTyping>
 					<PostTitle />
 					<BlockList
 						showContextualToolbar={ ! isLargeViewport || ! hasFixedToolbar }
@@ -39,9 +38,9 @@ function VisualEditor( { hasFixedToolbar, isLargeViewport } ) {
 							</Fragment>
 						) }
 					/>
-				</WritingFlow>
-			</ObserveTyping>
-		</BlockSelectionClearer>
+				</ObserveTyping>
+			</WritingFlow>
+		</div>
 	);
 }
 
