@@ -1122,12 +1122,13 @@ function buildInserterItemFromBlockType( state, enabledBlockTypes, blockType ) {
 /**
  * Given a reusable block, constructs an item that appears in the inserter.
  *
+ * @param {Object}           state             Global application state.
  * @param {string[]|boolean} enabledBlockTypes Enabled block types, or true/false to enable/disable all types.
  * @param {Object}           reusableBlock     Reusable block, likely from getReusableBlock().
  *
  * @return {Editor.InserterItem} Item that appears in inserter.
  */
-function buildInserterItemFromReusableBlock( enabledBlockTypes, reusableBlock ) {
+function buildInserterItemFromReusableBlock( state, enabledBlockTypes, reusableBlock ) {
 	if ( ! enabledBlockTypes || ! reusableBlock ) {
 		return null;
 	}
@@ -1137,7 +1138,12 @@ function buildInserterItemFromReusableBlock( enabledBlockTypes, reusableBlock ) 
 		return null;
 	}
 
-	const referencedBlockType = getBlockType( reusableBlock.type );
+	const referencedBlock = getBlock( state, reusableBlock.uid );
+	if ( ! referencedBlock ) {
+		return null;
+	}
+
+	const referencedBlockType = getBlockType( referencedBlock.name );
 	if ( ! referencedBlockType ) {
 		return null;
 	}
@@ -1173,7 +1179,7 @@ export function getInserterItems( state, enabledBlockTypes = true ) {
 	);
 
 	const dynamicItems = getReusableBlocks( state ).map( reusableBlock =>
-		buildInserterItemFromReusableBlock( enabledBlockTypes, reusableBlock )
+		buildInserterItemFromReusableBlock( state, enabledBlockTypes, reusableBlock )
 	);
 
 	const items = [ ...staticItems, ...dynamicItems ];
@@ -1201,7 +1207,7 @@ function getItemsFromInserts( state, inserts, enabledBlockTypes = true, maximum 
 	const items = fillWithCommonBlocks( inserts ).map( insert => {
 		if ( insert.ref ) {
 			const reusableBlock = getReusableBlock( state, insert.ref );
-			return buildInserterItemFromReusableBlock( enabledBlockTypes, reusableBlock );
+			return buildInserterItemFromReusableBlock( state, enabledBlockTypes, reusableBlock );
 		}
 
 		const blockType = getBlockType( insert.name );
@@ -1248,8 +1254,8 @@ export function getFrecentInserterItems( state, enabledBlockTypes = true, maximu
 /**
  * Returns the reusable block with the given ID.
  *
- * @param {Object} state Global application state.
- * @param {string} ref   The reusable block's ID.
+ * @param {Object}        state Global application state.
+ * @param {number|string} ref   The reusable block's ID.
  *
  * @return {Object} The reusable block, or null if none exists.
  */
@@ -1260,10 +1266,12 @@ export const getReusableBlock = createSelector(
 			return null;
 		}
 
+		const isTemporary = isNaN( parseInt( ref ) );
+
 		return {
 			...block,
-			id: ref,
-			isTemporary: ! Number.isInteger( ref ),
+			id: isTemporary ? ref : +ref,
+			isTemporary,
 		};
 	},
 	( state, ref ) => [
@@ -1304,7 +1312,7 @@ export function isFetchingReusableBlock( state, ref ) {
  * @return {Array} An array of all reusable blocks.
  */
 export function getReusableBlocks( state ) {
-	return Object.values( state.reusableBlocks.data );
+	return Object.keys( state.reusableBlocks.data ).map( ( ref ) => getReusableBlock( state, ref ) );
 }
 
 /**
