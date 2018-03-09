@@ -101,7 +101,7 @@
 		position: relative;
 
 		&:before {
-			z-index: z-index( '.editor-block-list__block:before' );
+			z-index: z-index( '.editor-block-list__block-edit:before' );
 			content: '';
 			position: absolute;
 			top: -$block-padding;
