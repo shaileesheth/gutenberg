@@ -345,11 +345,6 @@ export default {
 
 		result.then(
 			( reusableBlockOrBlocks ) => {
-				dispatch( {
-					type: 'FETCH_REUSABLE_BLOCKS_SUCCESS',
-					id,
-				} );
-
 				dispatch( receiveReusableBlocks( map(
 					castArray( reusableBlockOrBlocks ),
 					( reusableBlock ) => ( {
@@ -357,6 +352,11 @@ export default {
 						parsedBlock: parse( reusableBlock.content )[ 0 ],
 					} )
 				) ) );
+
+				dispatch( {
+					type: 'FETCH_REUSABLE_BLOCKS_SUCCESS',
+					id,
+				} );
 			},
 			( error ) => {
 				dispatch( {
