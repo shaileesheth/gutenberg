@@ -27,16 +27,15 @@ export function DefaultBlockAppender( { isLocked, isVisible, onAppend, showPromp
 	return (
 		<div className="editor-default-block-appender">
 			<BlockDropZone />
-			<div className="editor-default-block-appender__content">
-				<input
-					type="text"
-					readOnly
-					onFocus={ onAppend }
-					onClick={ onAppend }
-					onKeyDown={ onAppend }
-					value={ showPrompt ? __( 'Write your story' ) : '' }
-				/>
-			</div>
+			<input
+				className="editor-default-block-appender__content"
+				type="text"
+				readOnly
+				onFocus={ onAppend }
+				onClick={ onAppend }
+				onKeyDown={ onAppend }
+				value={ showPrompt ? __( 'Write your story' ) : '' }
+			/>
 		</div>
 	);
 }
